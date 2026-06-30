@@ -399,5 +399,74 @@ class king implements ChessPlayer {
 
 */
 
+class Main {
+
+    public static void main(String args[]) {
+        //Static Keyword - in java it is used to share the same variable or method of a given class.
+        // Student s1 = new Student();
+        // s1.schoolName = "SMT";
+        
+        // Student s2 = new Student();
+        // System.out.println(s2.schoolName);
+
+        // Student s3 = new Student();
+        // s3.schoolName = "ABC";
+
+        // System.out.println(s1.schoolName);
+        // System.out.println(s2.schoolName);
+
+        Horse h = new Horse();
+        System.out.println(h.color);
+    }
+}
+
+// class Student {
+//     static int returnPercentage(int math, int phy, int chem) {
+//         return(math + phy + chem) / 3;
+//     }
+
+//     String name;
+//     int roll;
+
+//     static String schoolName;
+
+//     void setName(String name) {
+//         this.name = name;
+//     }
+//     String getName() {
+//         return this.name;
+//     }
+// }
 
 
+/*Super Keyword - is used to refer immediate parent class object.
+-to access parent's properties
+-to access parent's functions
+-to access parent's constructor
+*/
+
+class Animal {
+    String color;
+    Animal() {
+        System.out.println("animal constructor is called");
+    }
+}
+
+class Horse extends Animal {
+    Horse () {
+        super.color = "brown";
+        System.out.println("horse constructor is called");
+    }
+}
+
+//Constructor Chaining - Homework
+//Note :- In java no class is private or protected, they can only bee public or default
+
+/*
+Remember this table :
+            | private | default | protected | public
+Class       |   No    |   Yes   |    No     |  Yes
+Nested Class|   Yes   |   Yes   |    Yes    |  Yes
+Constructor |   Yes   |   Yes   |    Yes    |  Yes
+Method      |   Yes   |   Yes   |    Yes    |  Yes
+Field       |   Yes   |   Yes   |    Yes    |  Yes
