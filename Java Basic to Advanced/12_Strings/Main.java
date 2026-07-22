@@ -61,21 +61,20 @@ public class Main {
     }
 
     public static String compress(String str) { //O(n)
-        StringBuilder s = new StringBuilder("");
+        StringBuilder sb = new StringBuilder("");
 
         for(int i = 0; i < str.length(); i++) {
-            int count = 0;
-            s.append(str.charAt(i));
-            count++;
+            int count = 1;
+            sb.append(str.charAt(i));
             while(i < str.length()-1 && str.charAt(i) == str.charAt(i+1)) {
                 count++;
                 i++;
             }
             if(count > 1) {
-                s.append(count);
+                sb.append(count);
             }
         }
-        return s.toString();
+        return sb.toString();
     }
     
     public static void main(String args[]) {
@@ -171,7 +170,7 @@ public class Main {
         // System.out.println(toUpperCase(str));
 
         //Q5
-        // String str = "aaabbcccdd";
-        // System.out.println(compress(str));
+        String str = "aaabbcccdd";
+        System.out.println(compress(str));
     }
 }

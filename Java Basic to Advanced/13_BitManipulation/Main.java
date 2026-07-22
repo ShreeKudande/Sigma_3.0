@@ -12,7 +12,7 @@ public class Main {
         }
     }
 
-    public static int getIthBit(int n, int i) {
+    public static int getIthBit(int n, int i) { //Read a specific bit
         int bitMask = 1<<i;
         if((n & bitMask) == 0) {
             return 0;
@@ -21,18 +21,18 @@ public class Main {
         }
     }
 
-    public static int setIthBit(int n, int i) {
+    public static int setIthBit(int n, int i) { //Turn a specific bit ON
         int bitMask = 1 << i;
 
         return (n | bitMask);
     }
 
-    public static int clearIthBit(int n, int i) {
+    public static int clearIthBit(int n, int i) { //Turn a specific bit OFF
         int bitMask = ~(1 << i);
         return n & bitMask;
     }
 
-    public static int updateIthBit(int n, int i, int newBit) {
+    public static int updateIthBit(int n, int i, int newBit) { //Change a bit to a variable value
         // if(newBit == 0) {
         //     return clearIthBit(n, i);
         // } else {
@@ -51,7 +51,7 @@ public class Main {
 
     public static int clearBitsinRange(int n, int i, int j) {
         int a = ((~0)<<(j+1));
-        int b = (1<<i)-1;
+        int b = (1<<i)-1;   
         int bitMask = a | b;
         return n & bitMask;
     }
@@ -128,5 +128,8 @@ public class Main {
 
         //fast Exponentiation
         System.out.println(fastExpo(5, 3));
+
+        //modular Exponentiation
+        
     }
 }
