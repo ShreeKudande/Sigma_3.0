@@ -109,8 +109,30 @@ public class Main {
         return x * power(x, n-1);
     }
 
-    public static int optimizedPower(int a, int n) {
-        
+    public static int optimizedPower(int x, int n) {
+        if(n == 0) {
+            return 1;
+        }
+        int halfPower = optimizedPower(x, n/2);
+        int halfPowerSq = halfPower*halfPower;
+
+        if(n % 2 != 0) {
+            halfPowerSq = x * halfPowerSq;
+        }
+
+        return halfPowerSq;
+    }
+
+        public static int tilingProblem(int n) { // 2 x n (floor size)
+        if(n == 0 || n == 1) {
+            return 1;
+        }
+
+        int fnm1 = tilingProblem(n-1); //vertical choice
+        int fnm2 = tilingProblem(n-2); //horizontal choice
+
+        int totways = fnm1 + fnm2;
+        return totways;
     }
 
     public static void main(String args[]) {
@@ -154,11 +176,16 @@ public class Main {
         // System.out.println(lastOccurence(arr, key, 0));
 
         //P9 : Print X^n
-        // System.out.println(power(2, 31));
+        // System.out.println(power(2, 10));
 
-        //P9 : Optimized
+        //P9 : Optimized Power
+        //Print x^n in O(logn)
+        // System.out.println(optimizedPower(2, 10));
+
+        //P10 : Tiling Problem
+        System.out.println(tilingProblem(5));
         
-    }
+    }   
 }
 
 
