@@ -123,7 +123,7 @@ public class Main {
         return halfPowerSq;
     }
 
-        public static int tilingProblem(int n) { // 2 x n (floor size)
+    public static int tilingProblem(int n) { // 2 x n (floor size)
         if(n == 0 || n == 1) {
             return 1;
         }
@@ -133,6 +133,44 @@ public class Main {
 
         int totways = fnm1 + fnm2;
         return totways;
+    }
+
+    public static void removeDuplicates(String str, int idx, StringBuilder sb, boolean map[]) {
+        if(idx == str.length()) {
+            System.out.println(sb);
+            return;
+        }
+
+        char currChar = str.charAt(idx);
+        if(map[currChar -'a'] == true) {
+            removeDuplicates(str, idx+1, sb, map);
+        } else {
+            map[currChar - 'a'] = true;
+            removeDuplicates(str, idx+1, sb.append(currChar), map);
+        }
+    }
+
+    public static int friendsPairing(int n) {
+        // BASE CASES: The stopping conditions for the recursion.
+        // If there is only 1 friend, they can only go alone (1 way).
+        // If there are 2 friends, they can go alone or pair up (2 ways).
+        if(n == 1 || n == 2) {
+            return n;
+        }
+        
+        // RECURSIVE STEP: We figure out the total by looking at the choices of the "nth" friend.
+        
+        // CHOICE 1: The nth friend stays single. 
+        // This leaves (n-1) friends remaining to figure out their arrangements.
+        // Handled by -> friendsPairing(n-1)
+        
+        // CHOICE 2: The nth friend pairs up.
+        // They have (n-1) possible friends to choose as a partner.
+        // Once they pair up, 2 people are removed, leaving (n-2) friends to arrange themselves.
+        // Handled by -> (n-1) * friendsPairing(n-2)
+        
+        // TOTAL: Add the possibilities from Choice 1 and Choice 2 together.
+        return friendsPairing(n-1) + (n-1) * friendsPairing(n-2);
     }
 
     public static void main(String args[]) {
@@ -183,7 +221,17 @@ public class Main {
         // System.out.println(optimizedPower(2, 10));
 
         //P10 : Tiling Problem
-        System.out.println(tilingProblem(5));
+        // System.out.println(tilingProblem(5));
+
+        //P11 : Remove Duplicates in a String
+        // String str = "appnnacollege";
+        // removeDuplicates(str, 0, new StringBuilder(""), new boolean[26]);
+
+        //P12 : Friends Pairing Problem
+        // System.out.println(friendsPairing(4));
+
+        //P13 : Binary Strings Problem
+        
         
     }   
 }
