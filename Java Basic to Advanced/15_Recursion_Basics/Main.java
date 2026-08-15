@@ -173,6 +173,18 @@ public class Main {
         return friendsPairing(n-1) + (n-1) * friendsPairing(n-2);
     }
 
+    public static void printBinStrings(int n, int lastPlace, String str) {
+        if(n == 0) {
+            System.out.println(str);
+            return;
+        }
+
+        printBinStrings(n-1, 0, str+"0");
+        if(lastPlace == 0) {
+            printBinStrings(n-1, 1, str+"1");
+        }
+    }
+
     public static void main(String args[]) {
         //P1 : Print numbers from n to 1 (Decreasing Order)
         // for(int i = 10; i > 0; i--) {
@@ -231,7 +243,7 @@ public class Main {
         // System.out.println(friendsPairing(4));
 
         //P13 : Binary Strings Problem
-        
+        printBinStrings(3, 0, "");
         
     }   
 }
