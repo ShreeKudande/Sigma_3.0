@@ -46,6 +46,24 @@ class Main {
         System.out.println();
     }
 
+    public static void findSubsets(String str, String ans, int i) {
+        //base case
+        if(i == str.length()) {
+            if(ans.length() == 0) {
+                System.out.println("null");
+            } else {
+                System.out.println(ans);
+            }
+            return;
+        }
+
+        //recursion
+        //Yes choice
+        findSubsets(str, ans+str.charAt(i), i+1);
+        //No choice
+        findSubsets(str, ans, i+1);
+    }
+
     public static void main(String args[]) {
         //Backtracking on Arrays
         // int arr[] = new int[5];
@@ -65,5 +83,22 @@ class Main {
        // a, b, c, ab, bc, ac, abc, "" --> empty set (null set) represented using five in math
        //above there are 8 subsets
        //Note :- String length n --> 2^n subsets
+       String str = "abc";
+       findSubsets(str, "", 0);
+
+       //Output :-
+       //abc
+       //ab
+       //ac
+       //a
+       //bc
+       //b
+       //c
+       //null
+
+       //TC : O(n*2^n)
+       //SC : O(n)
+        //Try optimizing it using StringBuilder
+        
     }
 }
