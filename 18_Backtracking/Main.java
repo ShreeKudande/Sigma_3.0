@@ -48,19 +48,24 @@ class Main {
 
     public static void findSubsets(String str, String ans, int i) {
         //base case
-        if(i == str.length()) {
-            if(ans.length() == 0) {
+        if (i == str.length())
+        {
+            if (ans.length() == 0)
+            {
                 System.out.println("null");
-            } else {
+            }
+            else
+            {
                 System.out.println(ans);
             }
             return;
+
         }
 
         //recursion
-        //Yes choice
+        //yes choice
         findSubsets(str, ans+str.charAt(i), i+1);
-        //No choice
+        //no choice
         findSubsets(str, ans, i+1);
     }
 
