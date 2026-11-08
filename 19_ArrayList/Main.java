@@ -18,6 +18,79 @@ class Main {
         list.set(idx2, temp);
     }
 
+    public static int storeWater(ArrayList<Integer> height) {
+        int maxWater = 0;
+        int n = height.size();
+
+        //brute force approach - O(n^2)
+        // for(int i = 0; i < n; i++) {
+        //     for(int j = i+1; j < n; j++) {
+        //         int minHeight = Math.min(height.get(i), height.get(j));
+        //         int width = j-i;
+        //         maxWater = Math.max(maxWater, minHeight*width);
+        //     }
+        // }
+
+        //2 pointer approach - O(n)
+        int lp = 0;
+        int rp = height.size()-1;
+
+        while(lp < rp) {
+            int minHeight = Math.min(height.get(lp), height.get(rp));
+            int width = rp-lp;
+            maxWater = Math.max(maxWater, minHeight*width);
+
+            if(height.get(lp) < height.get(rp)) {
+                lp++;
+            } else {
+                rp--;
+            }
+        }
+
+        return maxWater;
+    }
+
+    public static Boolean pairSum1(ArrayList<Integer> list, int target) {
+        int n = list.size();
+
+        // BruteForce Approach - O(n^2)
+        // for(int i = 0; i < n; i++) {
+        //     for(int j = i; j < n; j++) {
+        //         if(list.get(i) + list.get(j) == target) {
+        //             return true;
+        //         }
+        //     }
+        // }
+        // return false;
+
+        // 2 Pointer Approach O(n)
+        int lp = 0;
+        int rp = n-1;
+
+        while (lp <= rp) {
+            if (list.get(lp) + list.get(rp) == target) {
+                return true;
+            }
+            
+            if (list.get(lp) + list.get(rp) < target) {
+                lp++;
+            }
+            else {
+                rp--;
+            }
+        }
+
+        return false;
+    }
+
+    public static Boolean pairSum2(ArrayList<Integer> list, int target) {
+        int n = list.size();
+
+        //Brute Force Approach would be same for this as pairSum1, because the nested logic does not care about if its sorted or not, it will always return correct answer - O(n^2)
+
+        
+    }
+
     public static void main(String args[]) {
         // // Create an ArrayList
         // ArrayList<Integer> list = new ArrayList<>();
@@ -136,30 +209,124 @@ class Main {
 
         // System.out.println(mainList);
 
-        ArrayList<ArrayList<Integer>> mainList = new ArrayList<>();
-        ArrayList<Integer> list1 = new ArrayList<>();
-        ArrayList<Integer> list2 = new ArrayList<>();
-        ArrayList<Integer> list3 = new ArrayList<>();
+        // ArrayList<ArrayList<Integer>> mainList = new ArrayList<>();
+        // ArrayList<Integer> list1 = new ArrayList<>();
+        // ArrayList<Integer> list2 = new ArrayList<>();
+        // ArrayList<Integer> list3 = new ArrayList<>();
 
-        for(int i = 1; i <= 5; i++) {
-            list1.add(i*1); //1 2 3 4 5
-            list2.add(i*2); //2 4 6 8 10
-            list3.add(i*3); //3 6 9 12 15
-        }
+        // for(int i = 1; i <= 5; i++) {
+        //     list1.add(i*1); //1 2 3 4 5
+        //     list2.add(i*2); //2 4 6 8 10
+        //     list3.add(i*3); //3 6 9 12 15
+        // }
 
-        mainList.add(list1);
-        mainList.add(list2);
-        mainList.add(list3);
+        // mainList.add(list1);
+        // mainList.add(list2);
+        // mainList.add(list3);
 
-        for(int i = 0; i < mainList.size(); i++) {
-            ArrayList<Integer> currList = mainList.get(i);
-            for(int j = 0; j < currList.size(); j++) {
-                System.out.print(currList.get(j) + " ");
-            }
-            System.out.println();
-        }
+        // for(int i = 0; i < mainList.size(); i++) {
+        //     ArrayList<Integer> currList = mainList.get(i);
+        //     for(int j = 0; j < currList.size(); j++) {
+        //         System.out.print(currList.get(j) + " ");
+        //     }
+        //     System.out.println();
+        // }
 
-        System.out.println(mainList);
+        // System.out.println(mainList);
 
+        // Container with Most Water
+        // For given n lines on x-axis, use 2 lines to form a container such that it holds maximum water.
+        // height = [1, 8, 6, 2, 5, 4, 8, 3, 7];
+
+        // int height[] = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+
+        // int maxWater = 0;
+        // for(int i = 0; i < height.length; i++) {
+        //     for(int j = i + 1; j < height.length; j++) {
+        //         int width = j-i;
+        //         if(height[j] <= height[i]) {
+        //             maxWater = Math.max(maxWater, height[j]*width);
+        //         }
+        //         else {
+        //             maxWater = Math.max(maxWater, height[i]*width);
+        //         }
+        //     }
+        // }
+
+        // System.out.println("Max Water: " + maxWater);
+
+        // ArrayList<Integer> height = new ArrayList<>();
+        // //1, 8, 6, 2, 5, 4, 8, 3, 7
+        // height.add(1);
+        // height.add(8);
+        // height.add(6);
+        // height.add(2);
+        // height.add(5);
+        // height.add(4);
+        // height.add(8);
+        // height.add(3);
+        // height.add(7);
+
+        // System.out.println(storeWater(height));
+
+        // How is this different than Trapping Rainwater?
+        /*
+        Algorithm Comparison: Container with Most Water vs Trapping Rain Water
+
+        1. Container with Most Water (LeetCode 11)
+
+        - The Goal: Find just two boundary lines that form a single, wide container 
+        holding the maximum possible water.
+        - The Logic: The lines inside your two chosen boundaries are completely ignored. 
+        The water level is determined only by the distance between the two endpoints 
+        and the height of the shorter boundary line.
+        - The Math: Area = (rightIndex - leftIndex) * Math.min(height[leftIndex], height[rightIndex])
+        - Algorithm: Solved in O(n) time using a standard two-pointer approach. Start 
+        at opposite ends of the array and shift the pointer of the shorter line inward.
+
+
+        2. Trapping Rain Water (LeetCode 42)
+
+        - The Goal: Calculate the total sum of water trapped across the entire terrain 
+        of elevation blocks.
+        - The Logic: Every single block in the array matters. The water trapped directly 
+        on top of any specific block is dictated by the tallest block anywhere to 
+        its left and the tallest block anywhere to its right.
+        - The Math: Water at index i = Math.min(leftMax, rightMax) - height[i]
+        - Algorithm: Requires knowing the maximum heights on both sides of every element. 
+        Typically solved using auxiliary arrays (Prefix Max and Suffix Max) to store 
+        those boundaries, or optimized to O(1) space using a complex two-pointer setup.
+        */
+
+        // Pair Sum - 1
+        // Find if any pair in a Sorted ArrayList has a target sum.
+        // list = [1, 2, 3, 4, 5, 6], target = 5
+
+        // ArrayList<Integer> list = new ArrayList<>();
+        // // 1, 2, 3, 4, 5, 6
+        // list.add(1);
+        // list.add(2);
+        // list.add(3);
+        // list.add(4);
+        // list.add(5);
+        // list.add(6);
+        // int target = 5;
+
+        // System.out.println(pairSum1(list, target));
+
+        // Pair Sum - 2
+        // Find if any pair in a Sorted & Rotated ArrayList has a target sum.
+        // list = [11, 15, 6, 8, 9, 10], target = 16
+        ArrayList<Integer> list = new ArrayList<>();
+        // 11, 15, 6, 8, 9, 10
+        list.add(11);
+        list.add(15);
+        list.add(6);
+        list.add(8);
+        list.add(9);
+        list.add(10);
+        int target = 16;
+
+        pairSum2(list, target);
     }
 }
