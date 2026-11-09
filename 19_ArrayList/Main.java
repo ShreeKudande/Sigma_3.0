@@ -88,6 +88,34 @@ class Main {
 
         //Brute Force Approach would be same for this as pairSum1, because the nested logic does not care about if its sorted or not, it will always return correct answer - O(n^2)
 
+        // 2 Pointers Approach O(n) - Used Modular Arithmetic 
+        int pivot = -1;
+
+        for(int i = 0; i < n; i++) {
+            if(list.get(i) > list.get(i+1)) { // breaking point
+                pivot = i;
+                break;
+            }
+        }
+
+        int lp = pivot+1; // smallest
+        int rp = pivot; // largest
+
+        while(lp != rp) {
+            //case1
+            if(list.get(lp) + list.get(rp) == target) {
+                return true;
+            }
+
+            //case2
+            if(list.get(lp) + list.get(rp) < target) {
+                lp = (lp + 1) % n;
+            } else{
+                rp = (n + rp - 1) % n;
+            }
+        }
+
+        return false;
         
     }
 
@@ -318,7 +346,7 @@ class Main {
         // Find if any pair in a Sorted & Rotated ArrayList has a target sum.
         // list = [11, 15, 6, 8, 9, 10], target = 16
         ArrayList<Integer> list = new ArrayList<>();
-        // 11, 15, 6, 8, 9, 10
+        // 11, 15, 6, 8, 9, 10 - Sorted & Rotated
         list.add(11);
         list.add(15);
         list.add(6);
@@ -327,6 +355,6 @@ class Main {
         list.add(10);
         int target = 16;
 
-        pairSum2(list, target);
+        System.out.println(pairSum2(list, target));
     }
 }
