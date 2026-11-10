@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class PracticeSolutions {
 
@@ -16,6 +16,23 @@ public class PracticeSolutions {
         }
 
         return isIncreasing || isDecreasing;
+    }
+
+    public static ArrayList findLonely(int nums[]) {
+        int n = nums.length;
+        ArrayList<Integer> newList = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for(int i = 0; i < n; i++) {
+            boolean isLeftClear = (i == 0 || nums[i-1] < nums[i]-1);
+            boolean isRightClear = (i == n-1 || nums[i+1] > nums[i]+1);
+
+            if(isLeftClear && isRightClear) {
+                newList.add(nums[i]);
+            }
+        }
+
+        return newList;
     }
 
     public static void main(String[] args) {
@@ -51,6 +68,7 @@ public class PracticeSolutions {
         */
 
        //Q2
-       
+       int nums[] = {10, 6, 5, 8};
+       System.out.println(findLonely(nums));
     }
 }

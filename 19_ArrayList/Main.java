@@ -110,7 +110,7 @@ class Main {
             //case2
             if(list.get(lp) + list.get(rp) < target) {
                 lp = (lp + 1) % n;
-            } else{
+            } else{ //case3
                 rp = (n + rp - 1) % n;
             }
         }
