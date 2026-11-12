@@ -1,48 +1,145 @@
 /*
-What is a Linked List?
-A linear data structure where elements are not stored in continuous memory locations. 
-Instead, each element (Node) contains its own data and a reference (pointer) to the next Node, forming a chain.
-
-- Dynamic size (grows and shrinks as needed)
-- Fast insertions and deletions compared to arrays
-- Requires sequential access starting from the Head node
-*/
+ * What is a Linked List?
+ * A linear data structure where elements are not stored in continuous memory locations.
+ * Instead, each element (Node) contains its own data and a reference (pointer) to the next Node, forming a chain.
+ *
+ * - Dynamic size (grows and shrinks as needed)
+ * - Fast insertions and deletions compared to arrays
+ * - Requires sequential access starting from the Head node
+ */
 
 public class Main {
 
-    public static void main(String args[]) {
-        LinkedList ll = new LinkedList();
+    public static void main(String[] args) {
+
+        // ==========================================
+        // 1. Basic Operations (Add, Remove, Print, Size)
+        // ==========================================
+        // LinkedList ll = new LinkedList();
 
         // ll.print();
-        ll.addFirst(2); // addFirst
+        // ll.addFirst(2); // addFirst
         // ll.print();
-        ll.addFirst(1);
+        // ll.addFirst(1);
         // ll.print();
-        ll.addLast(3); // addLast
+        // ll.addLast(3); // addLast
         // ll.print();
-        ll.addLast(4);
+        // ll.addLast(4);
 
-        ll.add(0, 9); // add in mid
-        ll.print(); // print linked list
+        // ll.add(0, 9); // add in mid
+        // ll.print(); // print linked list
 
-        System.out.println("linked list size: " + ll.size); // size of linked list - O(1)
+        // System.out.println("linked list size: " + ll.size); // size of linked list - O(1)
 
-        System.out.println("rmd head: " + ll.removeFirst()); //remove the head from linked list
-        ll.print();
+        // System.out.println("rmd head: " + ll.removeFirst()); // remove the head from linked list
+        // ll.print();
 
-        System.out.println("rmd tail: " + ll.removeLast()); //remove tail from ll
-        ll.print();
-        System.out.println("linked list size: " + ll.size);
+        // System.out.println("rmd tail: " + ll.removeLast()); // remove tail from ll
+        // ll.print();
+        // System.out.println("linked list size: " + ll.size);
 
+
+        // ==========================================
+        // 2. Search Operations (Iterative & Recursive)
+        // ==========================================
+        // Search for a key in a Linked List. Return the position where it is found. If not found, return -1;
+
+        // LinkedList ll = new LinkedList();
+        // ll.addFirst(2);
+        // ll.addFirst(1);
+        // ll.addLast(4);
+        // ll.addLast(5);
+        // ll.add(2, 3);
+
+        // Search (Iterative (loop))
+        // System.out.println(ll.itrSearch(5));
+        // System.out.println(ll.itrSearch(10));
+        // ll.print(); // 1->2->3->4->5->null
+
+        // Search (Recursive)
+        // System.out.println(ll.recSearch(3));
+        // System.out.println(ll.recSearch(6));
+        // ll.print();
+
+
+        // ==========================================
+        // 3. Reverse & Remove Nth Node from End
+        // ==========================================
+        // Reverse a Linked List - Iterative Approach (Classical & Important Question)
+        // ll.reverse();
+        // ll.print();
+
+        // Find & Remove Nth node from End (Iterative Approach)
+        // ll.removeNthNode(2);
+        // ll.print();
+
+
+        // ==========================================
+        // 4. Check if LL is a Palindrome
+        // ==========================================
+        // 1st approach would be to solve it using help of other data structures like array or array list,
+        // where we copy elements of linked list to array list and then check if its palindrome,
+        // this approach would give us time & space complexity of O(n).
+        // But we would solve it using constant space O(1).
+
+        // LinkedList ll = new LinkedList();
+        // ll.addLast(1);
+        // ll.addLast(2);
+        // ll.addLast(2);
+        // ll.addLast(1);
+
+        // ll.print(); // 1->2->2->1
+        // System.out.println(ll.checkPalindrome()); // returns true
+
+        /*
+         * This problem is a classic pattern builder that teaches how to break down a complex requirement
+         * into standard, reusable sub-problems. It demonstrates how to achieve O(1) space complexity by
+         * manipulating memory in-place, rather than taking the easy route of dumping nodes into an array or stack.
+         *
+         * Core Concepts Applied:
+         * - Algorithmic Modularity: Chaining distinct, smaller logic blocks together to solve the larger issue (Find Mid -> Reverse -> Compare).
+         * - Two-Pointer Technique (Slow/Fast): Moving pointers at different speeds to find the exact middle of the data structure in a single pass.
+         * - In-Place Reversal: Rewiring node pointers (prev, curr, next) safely to reverse the second half of the list without losing references or using extra memory.
+         * - Space Optimization: Achieving O(n) time while strictly maintaining O(1) auxiliary space.
+         */
+
+
+        // ==========================================
+        // 5. Floyd's Cycle Finding Algorithm
+        // ==========================================
+        /*
+         * Floyd's Cycle Finding Algorithm
+         * Purpose: Detects if a Linked List contains a loop or cycle.
+         *
+         * How it works (Two Runners Analogy):
+         * Think of two runners on a track. If the track is straight, the faster runner simply reaches the end.
+         * If the track has a circular loop, the faster runner will eventually lap the slower runner, and they will meet.
+         *
+         * Step-by-Step Logic:
+         * 1. Initial Setup: Use two pointers, a `slow` pointer and a `fast` pointer, both starting at the `head` of the linked list.
+         * 2. Traverse at Different Speeds: Inside a `while` loop, move the `slow` pointer forward by 1 node (+1) and the `fast` pointer forward by 2 nodes (+2).
+         * 3. Closing the Distance: The relative distance between them changes steadily by 1 unit per move, guaranteeing they will eventually land on the same node if a loop exists.
+         * 4. Cycle Confirmed: If the condition `slow == fast` is met, a cycle is confirmed (return `true`).
+         * 5. No Cycle: If the `fast` pointer (or its next node) reaches `null` `while (f != null && f.next != null)`, it means we hit the end of the list, breaking the loop (return `false`).
+         */
+
+        // Detect a Loop/Cycle in a Linked List
+        LinkedList.head = new LinkedList.Node(1);
+        LinkedList.head.next = new LinkedList.Node(2);
+        LinkedList.head.next.next = new LinkedList.Node(3);
+        LinkedList.head.next.next.next = LinkedList.head;
+        // 1->2->3->1
+        System.out.println(LinkedList.isCycle());
     }
 }
 
 class LinkedList {
+
     public static class Node {
         int data;
         Node next;
 
-        // constructor
+        // Constructor
         public Node(int data) {
             this.data = data;
             this.next = null;
@@ -53,18 +150,21 @@ class LinkedList {
     public static Node tail;
     public static int size; // size of a linked list
 
-    //Methods
+    // ==========================================
+    // Methods
+    // ==========================================
+
     public void addFirst(int data) { // O(1)
         // step1 - create new node
         Node newNode = new Node(data);
         size++;
-        if(head == null) {
+        if (head == null) {
             head = tail = newNode;
             return;
         }
 
         // step2 - newNode next = head
-        newNode.next = head; //link
+        newNode.next = head; // link
 
         // step3 - head = newNode
         head = newNode;
@@ -74,7 +174,7 @@ class LinkedList {
         // step1 - create new node
         Node newNode = new Node(data);
         size++;
-        if(head == null) {
+        if (head == null) {
             head = tail = newNode;
             return;
         }
@@ -87,14 +187,14 @@ class LinkedList {
     }
 
     public void print() { // O(n)
-        if(head == null) {
+        if (head == null) {
             System.out.println("It's empty...");
             return;
         }
 
         Node temp = head;
 
-        while(temp != null) {
+        while (temp != null) {
             System.out.print(temp.data + " -> ");
             temp = temp.next;
         }
@@ -102,31 +202,32 @@ class LinkedList {
         System.out.println("null");
     }
 
-    public void add(int idx, int data) { // add in the mid of link list
-        if(idx == 0) {
+    public void add(int idx, int data) { // add in the mid of linked list
+        if (idx == 0) {
             addFirst(data);
             return;
         }
-        
+
         Node newNode = new Node(data);
         size++;
         Node temp = head;
         int i = 0;
 
-        while(i < idx-1) {
+        while (i < idx - 1) {
             temp = temp.next;
             i++;
         }
-        //i = idx-1; temp --> prev  
+
+        // i = idx-1; temp --> prev
         newNode.next = temp.next;
         temp.next = newNode;
     }
 
     public int removeFirst() {
-        if(size == 0) {
+        if (size == 0) {
             System.out.println("It's empty...");
             return Integer.MAX_VALUE;
-        } else if(size == 1) {
+        } else if (size == 1) {
             int val = head.data;
             head = tail = null;
             size = 0;
@@ -140,10 +241,10 @@ class LinkedList {
     }
 
     public int removeLast() {
-        if(size == 0) {
+        if (size == 0) {
             System.out.println("It's empty...");
             return Integer.MIN_VALUE;
-        } else if(size == 1) {
+        } else if (size == 1) {
             int val = head.data;
             head = tail = null;
             size = 0;
@@ -152,11 +253,11 @@ class LinkedList {
 
         // prev : i = size-2
         Node prev = head;
-        for(int i = 0; i < size-2; i++) {
+        for (int i = 0; i < size - 2; i++) {
             prev = prev.next;
         }
 
-        int val = prev.next.data; //tail.data
+        int val = prev.next.data; // tail.data
         prev.next = null;
         tail = prev;
         size--;
@@ -168,32 +269,32 @@ class LinkedList {
         Node temp = head;
         int idx = 0;
 
-        while(temp != null) {
-            if(temp.data == key) { //key found
+        while (temp != null) {
+            if (temp.data == key) { // key found
                 return idx;
             }
             temp = temp.next;
             idx++;
         }
 
-        return -1; //key not found
+        return -1; // key not found
     }
 
     public int helper(Node head, int key) { // O(n)
-        if(head == null) { // base case
+        if (head == null) { // base case
             return -1;
         }
 
-        if(head.data == key) {
+        if (head.data == key) {
             return 0;
         }
 
         int idx = helper(head.next, key);
-        if(idx == -1) {
+        if (idx == -1) {
             return -1;
         }
 
-        return idx+1;
+        return idx + 1;
     }
 
     public int recSearch(int key) {
@@ -206,8 +307,8 @@ class LinkedList {
         Node curr = tail = head;
         Node next;
 
-        while(curr != null) {
-            //4 Steps
+        while (curr != null) {
+            // 4 Steps
             next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -218,25 +319,25 @@ class LinkedList {
     }
 
     public void removeNthNode(int n) { // (size-n+1) | O(n)
-        //calculate size
+        // calculate size
         int sz = 0;
         Node temp = head;
-        while(temp != null) {
+        while (temp != null) {
             temp = temp.next;
             sz++;
         }
 
-        //delete the first node if n = size, from end to start
-        if(n == sz) {
+        // delete the first node if n = size, from end to start
+        if (n == sz) {
             head = head.next;
             return;
         }
 
-        //sz-n
+        // sz-n
         int i = 1;
-        int iToFind = sz-n;
+        int iToFind = sz - n;
         Node prev = head;
-        while(i < iToFind) {
+        while (i < iToFind) {
             prev = prev.next;
             i++;
         }
@@ -250,40 +351,40 @@ class LinkedList {
         Node slow = head;
         Node fast = head;
 
-        while(fast != null && fast.next != null) {
-            slow = slow.next; //+1
-            fast = fast.next.next; //+2
+        while (fast != null && fast.next != null) {
+            slow = slow.next; // +1
+            fast = fast.next.next; // +2
         }
 
-        return slow; //slow is my midNode
+        return slow; // slow is my midNode
     }
 
     public boolean checkPalindrome() {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return true;
         }
-        
-        //step1 - find mid
+
+        // step1 - find mid
         Node midNode = findMid(head);
 
-        //step2 - reverse 2nd half
+        // step2 - reverse 2nd half
         Node prev = null;
         Node curr = midNode;
         Node next;
 
-        while(curr != null) {
+        while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
         }
 
-        Node right = prev; //right half head
-        Node left = head; //left half head
+        Node right = prev; // right half head
+        Node left = head; // left half head
 
-        //step3 - check left half & right half
-        while(right != null) {
-            if(left.data != right.data) {
+        // step3 - check left half & right half
+        while (right != null) {
+            if (left.data != right.data) {
                 return false;
             }
             left = left.next;
@@ -291,5 +392,21 @@ class LinkedList {
         }
 
         return true;
+    }
+
+    public static boolean isCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next; // +1
+            fast = fast.next.next; // +2
+
+            if (slow == fast) {
+                return true; // cycle exists
+            }
+        }
+
+        return false; // cycle does not exist
     }
 }

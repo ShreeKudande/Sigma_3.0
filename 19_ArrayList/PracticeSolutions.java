@@ -35,6 +35,25 @@ public class PracticeSolutions {
         return newList;
     }
 
+    public static int mostFrequent(ArrayList<Integer> nums, int key) {
+        int count[] = new int[1001];
+        int maxCount = 0;
+        int maxNum = 0;
+
+        for(int i = 0; i < nums.size(); i++) {
+            if(nums.get(i) == key) {
+                int target = nums.get(i+1);
+                count[target]++;
+
+                if(count[target] > maxCount) {
+                    maxCount = count[target];
+                    maxNum = target;
+                }
+            }
+        }
+        return maxNum;
+    }
+
     public static void main(String[] args) {
         //Q1
         // ArrayList<Integer> nums = new ArrayList<>();
@@ -67,8 +86,22 @@ public class PracticeSolutions {
         return isIncreasing || isDecreasing; (Returns true if at least one assumption survived)
         */
 
-       //Q2
-       int nums[] = {10, 6, 5, 8};
-       System.out.println(findLonely(nums));
+        //Q2
+        //int nums[] = {10, 6, 5, 8};
+        //System.out.println(findLonely(nums));
+
+        //Q3
+        // ArrayList<Integer> newList = new ArrayList<>();
+        // newList.add(1);
+        // newList.add(100);
+        // newList.add(200);
+        // newList.add(1);
+        // newList.add(100);
+        // int key = 1;
+
+        // System.out.println(mostFrequent(newList,key));
+
+        //Q4
+        
     }
 }
