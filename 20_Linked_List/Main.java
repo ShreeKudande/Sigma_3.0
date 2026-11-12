@@ -11,10 +11,7 @@
 public class Main {
 
     public static void main(String[] args) {
-
-        // ==========================================
-        // 1. Basic Operations (Add, Remove, Print, Size)
-        // ==========================================
+        // Basic Operations (Add, Remove, Print, Size)
         // LinkedList ll = new LinkedList();
 
         // ll.print();
@@ -39,9 +36,7 @@ public class Main {
         // System.out.println("linked list size: " + ll.size);
 
 
-        // ==========================================
-        // 2. Search Operations (Iterative & Recursive)
-        // ==========================================
+        // Search Operations (Iterative & Recursive)
         // Search for a key in a Linked List. Return the position where it is found. If not found, return -1;
 
         // LinkedList ll = new LinkedList();
@@ -62,9 +57,7 @@ public class Main {
         // ll.print();
 
 
-        // ==========================================
-        // 3. Reverse & Remove Nth Node from End
-        // ==========================================
+        // Reverse & Remove Nth Node from End
         // Reverse a Linked List - Iterative Approach (Classical & Important Question)
         // ll.reverse();
         // ll.print();
@@ -74,9 +67,7 @@ public class Main {
         // ll.print();
 
 
-        // ==========================================
-        // 4. Check if LL is a Palindrome
-        // ==========================================
+        // Check if LL is a Palindrome
         // 1st approach would be to solve it using help of other data structures like array or array list,
         // where we copy elements of linked list to array list and then check if its palindrome,
         // this approach would give us time & space complexity of O(n).
@@ -104,9 +95,7 @@ public class Main {
          */
 
 
-        // ==========================================
-        // 5. Floyd's Cycle Finding Algorithm
-        // ==========================================
+        // Floyd's Cycle Finding Algorithm
         /*
          * Floyd's Cycle Finding Algorithm
          * Purpose: Detects if a Linked List contains a loop or cycle.
@@ -124,12 +113,37 @@ public class Main {
          */
 
         // Detect a Loop/Cycle in a Linked List
-        LinkedList.head = new LinkedList.Node(1);
-        LinkedList.head.next = new LinkedList.Node(2);
-        LinkedList.head.next.next = new LinkedList.Node(3);
-        LinkedList.head.next.next.next = LinkedList.head;
+        // LinkedList.head = new LinkedList.Node(1);
+        // LinkedList.head.next = new LinkedList.Node(2);
+        // LinkedList.head.next.next = new LinkedList.Node(3);
+        // LinkedList.head.next.next.next = LinkedList.head;
         // 1->2->3->1
-        System.out.println(LinkedList.isCycle());
+        // System.out.println(LinkedList.isCycle());
+
+        // Removing a Loop/Cycle in a Linked List
+        //1.Detect if Cycle even exists.
+        //a.slow = head
+        //b.slow -> +1
+        //  fast -> +1
+        // As both grows by one after there first meet, there second meet would be exactly at the node where the cycle started or connected to the node.
+        //and assign null to the prev of fast
+
+        // LinkedList.head = new LinkedList.Node(1);
+        // LinkedList.Node temp = new LinkedList.Node(2);
+        // LinkedList.head.next = temp;
+        // LinkedList.head.next.next = new LinkedList.Node(3);
+        // LinkedList.head.next.next.next = temp;
+        // // 1->2->3->2
+
+        // System.out.println(LinkedList.isCycle());
+        // LinkedList.removeCycle();
+        // System.out.println(LinkedList.isCycle());
+
+        // Removing Cycle Explanation (Math)
+
+        //Java Collections Framework
+        // The Java Collections Framework (JCF) is a standard library in Java that provides ready-made data structures—like lists, sets, and maps—so you can easily store and manage groups of objects without having to write the code from scratch.
+
     }
 }
 
@@ -149,10 +163,7 @@ class LinkedList {
     public static Node head;
     public static Node tail;
     public static int size; // size of a linked list
-
-    // ==========================================
-    // Methods
-    // ==========================================
+    // Method
 
     public void addFirst(int data) { // O(1)
         // step1 - create new node
@@ -394,7 +405,7 @@ class LinkedList {
         return true;
     }
 
-    public static boolean isCycle() {
+    public static boolean isCycle() { //Floyd's CFA
         Node slow = head;
         Node fast = head;
 
@@ -408,5 +419,36 @@ class LinkedList {
         }
 
         return false; // cycle does not exist
+    }
+
+    public static void removeCycle() {
+        //detect cycle
+        Node slow = head;
+        Node fast = head;
+        boolean cycle = false;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast) {
+                cycle = true;
+                break;
+            }
+        }
+        if(cycle == false) {
+                return;
+        }
+
+        //find meeting point
+        slow = head;
+        Node prev = null; //last node
+        while(slow != fast) {
+            slow = slow.next;
+            prev = fast;
+            fast = fast.next;
+        }
+
+        //remove cycle -> last.next = null
+        prev.next = null;
     }
 }
