@@ -102,6 +102,6 @@ public class PracticeSolutions {
         // System.out.println(mostFrequent(newList,key));
 
         //Q4
-        
+        // solved on leetcode : https://leetcode.com/problems/beautiful-array
     }
 }
