@@ -158,6 +158,17 @@ public class Main {
         // ll.print(); // Output : 1->2->3->4->5->null TC: O(n log n)
 
         // Zig-Zag Linked List
+        // LinkedList ll = new LinkedList();
+        // ll.addLast(1);
+        // ll.addLast(2);
+        // ll.addLast(3);
+        // ll.addLast(4);
+        // ll.addLast(5);
+        // // 1->2->3->4->5
+
+        // ll.print();
+        // ll.head = ll.reorderList();
+        // ll.print();
         
     }
 }
@@ -526,5 +537,43 @@ class LinkedList {
 
         // merge both parts
         return merge(newLeft, newRight);
+    }
+
+    public Node reorderList() {
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        // find mid
+        Node mid = getMid(head);
+        Node curr = mid.next;
+        mid.next = null;
+
+        // reverse second half
+        Node prev = null;
+        Node next;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node i = head;
+        Node j = prev;
+        
+        // alternate merging
+        while(i != null && j != null) {
+            Node i_temp = i.next;
+            Node j_temp = j.next;
+
+            i.next = j;
+            i = i_temp;
+            j.next = i;
+            j = j_temp;
+        }
+
+        return head;
     }
 }
