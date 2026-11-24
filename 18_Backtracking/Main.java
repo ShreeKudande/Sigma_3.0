@@ -61,12 +61,26 @@ class Main {
             return;
 
         }
-
+    
         //recursion
         //yes choice
         findSubsets(str, ans+str.charAt(i), i+1);
         //no choice
         findSubsets(str, ans, i+1);
+    }
+
+    public static void findPermutation(String str, String ans) { // O(n * n!)
+        if(str.length() == 0) {
+            System.out.println(ans);
+            return;
+        }
+
+        for(int i = 0; i < str.length(); i++) {
+            char curr = str.charAt(i);
+            //"abcde" -> "ab" + "de" = "abde"
+            String newStr = str.substring(0, i) + str.substring(i+1);
+            findPermutation(newStr, ans + curr);
+        }
     }
 
     public static void main(String args[]) {
@@ -88,8 +102,8 @@ class Main {
        // a, b, c, ab, bc, ac, abc, "" --> empty set (null set) represented using five in math
        //above there are 8 subsets
        //Note :- String length n --> 2^n subsets
-       String str = "abc";
-       findSubsets(str, "", 0);
+    //    String str = "abc";
+    //    findSubsets(str, "", 0);
 
        //Output :-
        //abc
@@ -104,6 +118,23 @@ class Main {
        //TC : O(n*2^n)
        //SC : O(n)
         //Try optimizing it using StringBuilder
-        
+
+        // Find Permutations
+        // find & print all permutations of s string.
+        // abc -> abc, acb, bac, bca, cab, cba
+        // String str = "abc";
+        // findPermutation(str, "");
+
+        // N-Queens
+        // Place N queens on an N*N  chessboard such that no 2 queens can attack each other
+        int N = 2;
+        char board[][] = new char[N][N];
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                board[i][j] = '.';  
+            }
+        } 
+
+        nQueens(board, 0);
     }
 }
