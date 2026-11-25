@@ -116,6 +116,56 @@ class PracticeSolution {
         return head;
     }
 
+    public static Node oddEvenLL(Node head) {
+        Node prev = null;
+        Node curr = head;
+        Node oddNode = new Node(0);
+        Node temp = oddNode;
+        
+        while(curr != null) {
+            if(curr.data % 2 == 0) { //even
+                prev = curr;
+                curr = curr.next;
+            } else { //odd
+                temp.next = new Node(curr.data);
+                temp = temp.next;
+
+                if(prev != null) {
+                    prev.next = curr.next;
+                } else { //prev == null
+                    head = curr.next;
+                }
+                curr = curr.next;
+            }
+        }
+        if(prev != null) {
+            prev.next = oddNode.next;
+        } else {
+            head = oddNode.next;
+        }
+        return head;
+    }
+
+    public static Node optimalOddEvenLL(Node head) {
+        Node evenHead = new Node(0), evenTail = evenHead;
+        Node oddHead = new Node(0), oddTail = oddHead;
+        Node curr = head;
+
+        while(curr != null) {
+            if(curr.data % 2 == 0) { //even
+                evenTail.next = curr;
+                evenTail = evenTail.next;
+            } else { //odd
+                oddTail.next = curr;
+                oddTail = oddTail.next;
+            }
+            curr = curr.next;
+        }
+        oddTail.next = null;
+        evenTail.next = oddHead.next;
+        return evenHead.next;
+    }
+
     public static void main(String[] args) {
         //Q1
         //Solved in LeetCode : https://leetcode.com/problems/intersection-of-two-linked-lists
@@ -140,6 +190,13 @@ class PracticeSolution {
         // printList(head);
 
         //Q4
-        
+        // int[] arr = {1, 3, 5, 7, 2};
+        // Node head = createList(arr);
+        // printList(head);
+        // head = optimalOddEvenLL(head);
+        // printList(head);
+
+        //Q5
+        // Solved in LeetCode :- https://leetcode.com/problems/merge-k-sorted-lists
     }
 }
