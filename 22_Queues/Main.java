@@ -26,62 +26,201 @@
      - Uses     : BFS (Trees & Graphs), CPU/printer scheduling, buffers.
  */
 
+import java.util.*;
+
 class Main {
 
-    static class Queue {
+    static class ArrayQueue {
         static int arr[];
         static int size;
         static int rear;
+        static int front;
 
-        Queue(int n) {
+        ArrayQueue(int n) {
             arr = new int[n];
             size = n;
             rear = -1;
+            front = -1;
         }
 
         public static boolean isEmpty() {
-            return rear == -1;
+            return rear == -1 && front == -1;
+        }
+
+        public static boolean isFull() {
+            return (rear + 1) % size == front;
         }
 
         //add
+        // public static void add(int data) { //O(1)
+        //     if(rear == size-1) {
+        //         System.out.println("queue is full");
+        //         return;
+        //     }
+
+        //     rear = rear + 1;
+        //     arr[rear] = data;
+        // }
+
         public static void add(int data) { //O(1)
-            if(rear == size-1) {
+            if(isFull()) {
                 System.out.println("queue is full");
                 return;
             }
 
-            rear = rear + 1;
+            //add 1st element
+            if(front == -1) {
+                front = 0;
+            }
+
+            rear = (rear + 1) % size;
             arr[rear] = data;
         }
 
         //remove
-        public static int remove() { //O(n)
+        // public static int remove() { //O(n)
+        //     if(isEmpty()) {
+        //         System.out.println("empty queue");
+        //         return -1;
+        //     }
+
+        //     int front = arr[0];
+        //     for(int i = 0; i < rear; i++) {
+        //         arr[i] = arr[i+1];
+        //     }
+        //     rear = rear - 1;
+        //     return front;
+        // }
+
+        public static int remove() { //O(1)
             if(isEmpty()) {
                 System.out.println("empty queue");
                 return -1;
             }
 
-            int front = arr[0];
-            for(int i = 0; i < rear; i++) {
-                arr[i] = arr[i+1];
+            int result = arr[front];
+            
+            // if theres only 1 last element in arr
+            if(rear == front) {
+                rear = front = -1;
+            } else {
+                front = (front + 1) % size;
             }
-            rear = rear - 1;
-            return front;
+            return result;
         }
 
         //peak
+        // public static int peek() {
+        //     if(isEmpty()) {
+        //         System.out.println("empty queue");
+        //         return -1;
+        //     }
+
+        //     return arr[0];
+        // }
+
         public static int peek() {
             if(isEmpty()) {
                 System.out.println("empty queue");
                 return -1;
             }
 
-            return arr[0];
+            return arr[front];
+        }
+    }
+
+    static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    static class QueuesUsingLL {
+        static Node head = null;
+        static Node tail = null;
+
+        public static boolean isEmpty() {
+            return head == null && tail == null;
+        }
+
+        public static void add(int data) {
+            Node newNode = new Node(data);
+            if(head == null) {
+                head = tail = newNode;
+                return;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        public static int remove() {
+            if(isEmpty()) {
+                return -1;
+            }
+
+            int front = head.data;
+            //single element
+            if(tail == head) {
+                tail = head = null;
+            } else {
+                head = head.next;
+            }
+            return front;
+        }
+
+        public static int peek() {
+            if(isEmpty()) {
+                return -1;
+            }
+
+            return head.data;
         }
     }
 
     public static void main(String[] args) {
-        Queue q = new Queue(5);
+        //Queues using Arrays | Circular Queue using Arrays
+        /*
+        * 1. Queue using Array (Normal):
+        *    - add(): O(1) | peek(): O(1) | remove(): O(n)
+        *    - Drawback: Fixed size + slow removal because every element shifts left
+        *      (or empty front slots go to waste if we don't shift).
+        *
+        * 2. Circular Queue using Array:
+        *    - add(): O(1) | peek(): O(1) | remove(): O(1)
+        *    - Fix: Wraps back to index 0 using modulo (%) to reuse empty front slots—no shifting.
+        *      -> rear  = (rear + 1) % size
+        *      -> front = (front + 1) % size
+        *      -> Full condition: (rear + 1) % size == front
+        */
+        // ArrayQueue q = new ArrayQueue(5);
+        // q.add(1);
+        // q.add(2);
+        // q.add(3);
+
+        // while(!q.isEmpty()) {
+        //     System.out.println(q.peek());
+        //     q.remove();
+        // }
+
+        //Queues using Linked List
+        // QueuesUsingLL q = new QueuesUsingLL();
+        // q.add(1);
+        // q.add(2);
+        // q.add(3);
+
+        // while(!q.isEmpty()) {
+        //     System.out.println(q.peek());
+        //     q.remove();
+        // }
+
+        //Queues using JCF's
+        Queue<Integer> q = new LinkedList<>();
+        // Queue<Integer> q = new ArrayDeque<>();
         q.add(1);
         q.add(2);
         q.add(3);
@@ -91,4 +230,5 @@ class Main {
             q.remove();
         }
     }
+    
 }
